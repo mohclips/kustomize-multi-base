@@ -1,0 +1,30 @@
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: multi-base1
+
+nodes:
+- role: control-plane
+ 
+- role: worker
+  kubeadmConfigPatches:
+  - |
+    kind: JoinConfiguration
+    nodeRegistration:
+      kubeletExtraArgs:
+        node-labels: "size=small"
+
+- role: worker
+  kubeadmConfigPatches:
+  - |
+    kind: JoinConfiguration
+    nodeRegistration:
+      kubeletExtraArgs:
+        node-labels: "size=medium"
+
+- role: worker
+  kubeadmConfigPatches:
+  - |
+    kind: JoinConfiguration
+    nodeRegistration:
+      kubeletExtraArgs:
+        node-labels: "size=large"

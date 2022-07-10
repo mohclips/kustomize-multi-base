@@ -1,0 +1,4 @@
+resources:
+- ./small
+- ./medium
+- ./large

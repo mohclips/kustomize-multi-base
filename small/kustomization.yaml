@@ -1,0 +1,31 @@
+resources:
+- ./../base
+
+commonLabels:
+  dsSize: small
+
+namePrefix: small-
+
+patchesJson6902:
+- target:
+    group: apps
+    version: v1
+    kind: DaemonSet
+    # apply to ALL daemonsets in this patch
+    name: ".*"
+  # note the trailing '-' for array append in the path, and the missing starting '-' for the actual item in the value
+  patch: |-
+    # add our size selection
+    - op: add
+      path: /spec/template/spec/affinity/nodeAffinity/requiredDuringSchedulingIgnoredDuringExecution/nodeSelectorTerms/0/matchExpressions/-
+      value:
+        key: size
+        operator: In
+        values:
+        - small
+
+    # remove the deprecated
+    - op: remove
+      path: /spec/template/spec/affinity/nodeAffinity/requiredDuringSchedulingIgnoredDuringExecution/nodeSelectorTerms/1
+
+

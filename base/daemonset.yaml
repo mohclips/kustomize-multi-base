@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    app: base-ds
+  name: base-ds
+spec:
+  selector:
+    matchLabels:
+      app: base-ds
+  template:
+    metadata:
+      labels:
+        app: base-ds
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              # defaults - we should append to these   
+              # multiple '- matchExpressions' are 'ORed'
+              # items within 'matchExpressions' are 'ANDed'
+              - matchExpressions:
+                  - key: kubernetes.io/arch
+                    operator: In
+                    values: 
+                      - amd64
+                  - key: kubernetes.io/os
+                    operator: In
+                    values: 
+                      - linux
+                  # We want to insert here !!!!
+
+              - matchExpressions:
+                  # these are deprecated in v1.14
+                  - key: beta.kubernetes.io/arch
+                    operator: In
+                    values: 
+                      - amd64
+                  - key: beta.kubernetes.io/os
+                    operator: In
+                    values: 
+                      - linux
+                  # and insert here
+
+      containers:
+      - image: nginx
+        name: nginx
