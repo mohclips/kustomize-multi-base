@@ -62,7 +62,16 @@ daemonset.apps/medium-base-ds created
 daemonset.apps/small-base-ds created
 ```
 
-Verify the daemonSets have been applied to each selected node 
+Verify the lables have been applied to each daemnSet
+```bash
+$ kubectl get ds --show-labels
+NAME             DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE   LABELS
+large-base-ds    1         1         1       1            1           <none>          51m   app=base-ds,dsSize=large
+medium-base-ds   1         1         1       1            1           <none>          51m   app=base-ds,dsSize=medium
+small-base-ds    1         1         1       1            1           <none>          51m   app=base-ds,dsSize=small
+```
+
+Verify the daemonSets have been applied only to each selected node 
 ```bash
 $ kubectl get pods -owide
 NAME                   READY   STATUS    RESTARTS   AGE   IP           NODE                  NOMINATED NODE   READINESS GATES
@@ -70,6 +79,9 @@ large-base-ds-r486f    1/1     Running   0          20s   10.244.1.5   multi-bas
 medium-base-ds-bvlmc   1/1     Running   0          20s   10.244.2.5   multi-base1-worker2   <none>           <none>
 small-base-ds-45w25    1/1     Running   0          20s   10.244.3.5   multi-base1-worker    <none>           <none>
 ```
+
+
+
 
 I have been really impressed on how easy it was to get this working.
 
