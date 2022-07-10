@@ -38,6 +38,30 @@ patchesJson6902:
 
 # Process
 
+
+Directory tree
+```bash
+$ tree
+.
+├── apply-ds.sh
+├── base
+│   ├── daemonset.yaml
+│   └── kustomization.yaml
+├── delete-ds.sh
+├── kustomization.yaml
+├── large
+│   └── kustomization.yaml
+├── medium
+│   └── kustomization.yaml
+├── multi-base-lab.yaml
+├── README.md
+├── small
+│   └── kustomization.yaml
+├── start-cluster.sh
+└── stop-cluster.sh
+```
+
+
 Start the kind cluster - 1 control plane, 3 worker nodes
 ```bash
 $ ./start-cluster.sh
